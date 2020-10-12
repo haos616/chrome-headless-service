@@ -1,0 +1,9 @@
+version: "3.6"
+services:
+  chrome:
+    image: haos616/chrome-headless-service:latest
+    build: .
+    working_dir: /opt/chrome-headless-service
+    volumes:
+    - ".:/opt/chrome-headless-service"
+    privileged: true
