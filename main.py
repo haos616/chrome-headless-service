@@ -6,14 +6,13 @@ from selenium.webdriver.chrome.options import Options
 
 
 def get_pdf_from_html(path, chromedriver='/opt/chromedriver/chromedriver'):
-    # запускаем Chrome
     webdriver_options = Options()
-    webdriver_options.add_argument('--headless')
+    webdriver_options.headless = True
     webdriver_options.add_argument('--disable-gpu')
-    webdriver_options.add_argument('--remote-debugging-address=0.0.0.0')
+    # webdriver_options.add_argument('--remote-debugging-address=0.0.0.0')
     # webdriver_options.add_argument('--run-all-compositor-stages-before-draw')
     # webdriver_options.add_argument('--virtual-time-budget=1000')
-    webdriver_options.add_argument('--remote-debugging-port=9222')
+    # webdriver_options.add_argument('--remote-debugging-port=9222')
 
     # For Docker https://stackoverflow.com/questions/53902507/unknown-error-session-deleted-because-of-page-crash-from-unknown-error-cannot
     webdriver_options.add_argument('--disable-dev-shm-usage')
