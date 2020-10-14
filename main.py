@@ -19,10 +19,6 @@ def get_pdf_from_html(path, chromedriver='/opt/chromedriver/chromedriver'):
 
     driver = webdriver.Chrome(chromedriver, options=webdriver_options)
 
-    # открываем заданный url
-    # driver.set_page_load_timeout(30)
-    # driver.get(path)
-
     driver.execute_cdp_cmd("Page.navigate", cmd_args={'url': path})
     # import pdb
     # pdb.set_trace()
