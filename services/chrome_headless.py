@@ -11,7 +11,7 @@ class ChromeHeadlessService:
                 'executablePath': '/usr/bin/google-chrome',
             },
             args=[
-                # '--no-sandbox',
+                '--no-sandbox',
                 # '--disable-web-security',
                 # '--user-data-dir=user-data',
                 # "--disable-blink-features=AutomationControlled",
@@ -32,7 +32,4 @@ class ChromeHeadlessService:
             result = await client.send(**method_resource.dict())
             results.append(result)
         await browser.close()
-        # self.launcher.waitForChromeToClose()
-        # self.launcher.proc.terminate()
-        # await self.launcher.killChrome()
         return results

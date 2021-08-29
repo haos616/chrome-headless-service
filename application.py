@@ -22,7 +22,6 @@ async def index(
     method_resources: List[MethodResource],
     chrome_headless_service: ChromeHeadlessService = Depends(Provide[Container.chrome_headless_service]),
 ):
-    print("chrome_headless_service:", id(chrome_headless_service))
     return await chrome_headless_service.execute(method_resources=method_resources)
 
 container = Container()

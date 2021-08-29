@@ -6,3 +6,6 @@
 
 # Google chrome
 core
+
+# Docker
+/.env

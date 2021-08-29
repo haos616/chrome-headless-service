@@ -7,8 +7,6 @@ services:
       context: .
       dockerfile: Dockerfile
       network: host
-      target: local
+      target: live
     ports:
       - "127.0.0.1:8000:8000"
-    volumes:
-    - ".:/opt/chrome-headless-service"
