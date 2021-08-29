@@ -1,4 +1,4 @@
-FROM python:3.9.0
+FROM python:3.9.6
 
 ENV DOCKER_USER_ID 1000
 ENV DOCKER_GROUP_ID 1000
@@ -16,21 +16,16 @@ RUN apt update \
     && apt-get autoremove -y \
     && rm -rf /var/lib/{apt,dpkg,cache,log}
 
-ADD https://chromedriver.storage.googleapis.com/LATEST_RELEASE /tmp/chromedriver-latest-release
-
-RUN cd /tmp \
-    && wget https://chromedriver.storage.googleapis.com/`cat /tmp/chromedriver-latest-release`/chromedriver_linux64.zip \
-    && mkdir /opt/chromedriver \
-    && unzip chromedriver_linux64.zip -d /opt/chromedriver \
-    && rm chromedriver_linux64.zip
-
-COPY ./requirements.txt /opt/chrome-headless-service/
+RUN pip install -U pip setuptools pipenv \
+    && rm -rf /root/.cache/pip
 
 WORKDIR  /opt/chrome-headless-service/
 
-RUN pip install -U pip setuptools \
-    && pip install  -r /opt/chrome-headless-service/requirements.txt \
-    # --require-hashes doesn't work without cache
-    && rm -rf /root/.cache/pip
+COPY --chown=user:user ./Pipfile ./Pipfile.lock /opt/chrome-headless-service/
+
+RUN pipenv install --system \
+    && pipenv --clear
 
 USER user
+
+CMD ["uvicorn", "--host", "0.0.0.0", "application:app", "--reload"]

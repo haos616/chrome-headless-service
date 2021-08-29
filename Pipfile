@@ -1,0 +1,18 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+fastapi = "*"
+pyppeteer = "*"
+dependency-injector = "*"
+gunicorn = "*"
+uvicorn = "*"
+pydantic = {extras = ["dotenv"], version = "*"}
+
+[dev-packages]
+pytest = "*"
+
+[requires]
+python_version = "3.9"

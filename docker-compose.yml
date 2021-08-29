@@ -2,8 +2,15 @@ version: "3.6"
 services:
   chrome:
     image: haos616/chrome-headless-service:latest
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
+      network: host
+    ports:
+      - "127.0.0.1:8000:8000"
+      - "127.0.0.1:9222:9222"
     working_dir: /opt/chrome-headless-service
     volumes:
     - ".:/opt/chrome-headless-service"
     privileged: true
+    network_mode: host
