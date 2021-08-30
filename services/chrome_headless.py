@@ -1,3 +1,4 @@
+import asyncio
 from typing import List
 
 from pyppeteer.launcher import Launcher
@@ -29,7 +30,13 @@ class ChromeHeadlessService:
         page = await browser.newPage()
         client = await page.target.createCDPSession()
         for method_resource in method_resources:
-            result = await client.send(**method_resource.dict())
+            if method_resource.method == "Page.goto":
+                kwargs = method_resource.dict()
+                await page.goto(**kwargs["params"])
+                result = None
+            else:
+                result = await client.send(**method_resource.dict())
+            # await asyncio.sleep(10)
             results.append(result)
         await browser.close()
         return results
